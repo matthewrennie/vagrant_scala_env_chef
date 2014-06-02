@@ -51,8 +51,6 @@ bash "download and extract MCR" do
      code <<-EOH
        wget http://www.mathworks.com/supportfiles/MCR_Runtime/R2012a/MCR_R2012a_glnxa64_installer.zip
        unzip MCR_R2012a_glnxa64_installer.zip -d MCR_R2012a_glnxa64_installer
-       chmod 755 MCR_R2012a_glnxa64_installer/installer_input.txt
-       echo "agreeToLicense=yes" >> MCR_R2012a_glnxa64_installer/installer_input.txt       
        echo "export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/bin/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64:${LD_LIBRARY_PATH}" >> /home/vagrant/.profile
      EOH
      not_if "test -d /var/chef/cache/MCR_R2012a_glnxa64_installer"
@@ -60,7 +58,7 @@ end
 
 execute "install MCR" do
   user "root"
-  command "./install -mode silent -installputFile installer_input.txt"
+  command "./install -agreeToLicense yes -mode silent"
   cwd "/var/chef/cache/MCR_R2012a_glnxa64_installer"
   not_if do FileTest.directory?('/usr/local/MATLAB') end
 end
