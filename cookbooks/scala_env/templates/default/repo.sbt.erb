@@ -1,0 +1,7 @@
+credentials += Credentials("<%=node[:artifactory][:realm_name]%>", "<%=node[:artifactory][:domain]%>", "<%=node[:artifactory][:username]%>", "<%=node[:artifactory][:password]%>")
+ 
+resolvers += "<%=node[:artifactory][:repo_name]%>" at "<%=node[:artifactory][:protocol]%>://<%=node[:artifactory][:domain]%><%=node[:artifactory][:path]%>"
+ 
+externalResolvers <<= resolvers map { rs =>
+        Resolver.withDefaultResolvers(rs, mavenCentral = false)
+}
