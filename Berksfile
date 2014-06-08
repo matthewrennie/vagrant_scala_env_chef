@@ -8,3 +8,4 @@ cookbook "chef-sbt"
 cookbook "mongodb"
 cookbook "redis"
 cookbook 'scala_env', path: './cookbooks/scala_env'
+cookbook "s3_file"

@@ -7,6 +7,7 @@ include_recipe "mongodb::10gen_repo" # set the mongodb repo to 10gen
 include_recipe "mongodb::default" # install mongodb
 include_recipe "redisio::install" # install redis
 include_recipe "redisio::enable" # enable redis startup
+include_recipe "s3_file"
 
 # install nfs (required for nfs sharing instead of shared folders)
 ['nfs-common', 'portmap'].each do |lib|
@@ -43,33 +44,6 @@ template "repo.sbt" do
   group "vagrant"
   mode "0644"
 end
-
-# download and extract MCR
-bash "download and extract MCR" do
-     user "vagrant"
-     cwd "/var/chef/cache"
-     code <<-EOH
-       wget http://www.mathworks.com/supportfiles/MCR_Runtime/R2012a/MCR_R2012a_glnxa64_installer.zip
-       unzip MCR_R2012a_glnxa64_installer.zip -d MCR_R2012a_glnxa64_installer
-       echo "export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/bin/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnxa64/jre/lib/amd64:${LD_LIBRARY_PATH}" >> /home/vagrant/.profile
-     EOH
-     not_if "test -d /var/chef/cache/MCR_R2012a_glnxa64_installer"
-end
-
-execute "install MCR" do
-  user "root"
-  command "./install -agreeToLicense yes -mode silent"
-  cwd "/var/chef/cache/MCR_R2012a_glnxa64_installer"
-  not_if do FileTest.directory?('/usr/local/MATLAB') end
-end
-
-# install MCR deps
-['libx11-6', 'libxau6', 'libxdmcp6', 'libxext6', 'libxi6', 'libxmu6', 'libxp6', 'libxt6', 'libxtst6'].each do |lib|
-    apt_package "install MCR deps - "+lib do
-      package_name lib
-      action :install
-    end
-end 
 
 # install tig
 apt_package "install tig" do
