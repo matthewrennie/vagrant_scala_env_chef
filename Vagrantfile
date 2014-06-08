@@ -107,7 +107,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       "git" => {
         "global_email_address" => "<your email address>"
-      }
+      },
       
       "artifactory" => {
         "realm_name" => "Artifactory Realm",
