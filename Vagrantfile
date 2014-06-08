@@ -104,6 +104,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # You may also specify custom JSON attributes:
     chef.json = { 
+
+      "git" => {
+        "global_email_address" => "<your email address>"
+      }
       
       "artifactory" => {
         "realm_name" => "Artifactory Realm",
