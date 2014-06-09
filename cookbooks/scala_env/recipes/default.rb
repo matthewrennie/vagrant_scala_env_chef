@@ -27,6 +27,7 @@ git node[:source_repo][:destination] do
   action :sync
 end
 
+# set the git global identity
 bash "set git global email address" do   
    user "vagrant"
    group "vagrant"
@@ -59,3 +60,32 @@ apt_package "install tig" do
   package_name "tig"
   action :install
 end
+
+# install software properties (for apt-add-repository)
+['software-properties-common', 'python-software-properties'].each do |lib|
+    apt_package "install properties - "+lib do
+      package_name lib
+      action :install
+    end
+end 
+
+# add fish shell repo
+execute "add fish shell repo" do
+  user "root"
+  group "root"
+  command "apt-add-repository ppa:fish-shell/release-2"
+end
+
+# install fish shell
+apt_package "install fish shell" do
+  package_name "fish"
+  action :install
+end
+
+# make fish shell the default shell for vagrant user
+execute "make fish shell the default shell" do
+  user "root"
+  group "root"
+  command "chsh -s /usr/bin/fish vagrant"
+end
+
