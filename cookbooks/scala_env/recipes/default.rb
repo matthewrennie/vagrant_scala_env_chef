@@ -27,9 +27,13 @@ git node[:source_repo][:destination] do
   action :sync
 end
 
-execute "set git global email address" do
-  user "root"
-  command "git config --global user.email "+node[:git][:global_email_address]  
+bash "set git global email address" do   
+   user "vagrant"
+   group "vagrant"
+   code <<-EOH
+    echo "[user]" >> /home/vagrant/.gitconfig
+    echo "  email = #{node[:git][:global_email_address]}" >> /home/vagrant/.gitconfig
+    EOH
 end
 
 # create directories for sbt repo settings
