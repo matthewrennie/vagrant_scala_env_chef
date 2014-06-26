@@ -38,9 +38,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "/host/folder", "/work" 
-  # Use NFS in OSX as opposed to VirtualBox shared folder for performance reasons
-  # config.vm.synced_folder "/host/folder", "/work", :nfs => true
+  config.vm.synced_folder "/Users/matthewrennie/Documents/Work", "/work"
+  # config.vm.synced_folder "/Volumes/Personal/Work/stormsend-env", "/work", :nfs => true
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -51,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.name = "scala_env"
     v.gui = false
     v.memory = 2048
-    v.cpus = 1 
+    v.cpus = 1
   end
 
   #
@@ -94,22 +93,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
-  config.vm.provision "chef_solo" do |chef|    
-    
+  config.vm.provision "chef_solo" do |chef|   
+   
     chef.custom_config_path = "Vagrantfile.chef"
-    
+   
     chef.add_recipe "scala_env"
 
     chef.log_level = "debug"
 
     # You may also specify custom JSON attributes:
-    chef.json = { 
+    chef.json = {
 
-      "git" => {
-        "global_email_address" => "<your email address>"
+     "git" => {
+        "global_email_address" => "you_email@email.com",
+        "global_name" => "Your Name"
       },
-      
-      "artifactory" => {
+     
+     "artifactory" => {
         "realm_name" => "Artifactory Realm",
         "sbt_major_version" => "0.13",
         "protocol" => "https",

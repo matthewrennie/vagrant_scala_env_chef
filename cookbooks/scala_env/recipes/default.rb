@@ -7,7 +7,7 @@ include_recipe "mongodb::10gen_repo" # set the mongodb repo to 10gen
 include_recipe "mongodb::default" # install mongodb
 include_recipe "redisio::install" # install redis
 include_recipe "redisio::enable" # enable redis startup
-include_recipe "s3_file"
+include_recipe "nodejs"
 
 # install nfs (required for nfs sharing instead of shared folders)
 ['nfs-common', 'portmap'].each do |lib|
@@ -34,6 +34,7 @@ bash "set git global email address" do
    code <<-EOH
     echo "[user]" >> /home/vagrant/.gitconfig
     echo "  email = #{node[:git][:global_email_address]}" >> /home/vagrant/.gitconfig
+    echo "  name = #{node[:git][:global_name]}" >> /home/vagrant/.gitconfig
     EOH
 end
 

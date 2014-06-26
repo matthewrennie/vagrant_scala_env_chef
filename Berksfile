@@ -9,3 +9,4 @@ cookbook "mongodb"
 cookbook "redis"
 cookbook 'scala_env', path: './cookbooks/scala_env'
 cookbook "s3_file"
+cookbook "nodejs"
