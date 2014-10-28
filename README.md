@@ -10,6 +10,7 @@ Setup:
 3. Update Vagrantfile with own settings
 4. gem install berkshelf
 5. `vagrant plugin install vagrant-berkshelf --plugin-version '>= 2.0.1'`
+6. Install the ChefDK
 6. `vagrant plugin install vagrant-omnibus`
 7. `vagrant plugin install vagrant-vbguest`
 8. `vagrant up` (read vagrant docs for other commands)

@@ -5,7 +5,7 @@ include_recipe "java_ext::jce" # install cryptographic extentions
 include_recipe "chef-sbt::default" # install sbt
 include_recipe "mongodb::10gen_repo" # set the mongodb repo to 10gen
 include_recipe "mongodb::default" # install mongodb
-include_recipe "redisio::install" # install redis
+include_recipe "redisio::default" # install redis
 include_recipe "redisio::enable" # enable redis startup
 include_recipe "nodejs"
 

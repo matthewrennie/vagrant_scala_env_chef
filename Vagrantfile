@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/ubuntu-13.10"
+  config.vm.box = "chef/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -136,12 +136,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
 
       "sbt" => {
-        "version" => "0.13.1",
+        "version" => "0.13.5",
         "java_options" => "-Xmx1024m -Xms512m -XX:MaxPermSize=256m"
       },
 
       "mongodb" => {
-        "package_version" => "2.4.10"
+        "package_version" => "2.6.3"
       },
 
       "redisio" => {
